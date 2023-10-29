@@ -31,13 +31,17 @@ router.get('/:id',
 
 router.post('/',
   validatorHandler(createProductSchema, 'body'),
-  async (req, res) => {
-    const body = req.body;
-    const newProduct = await service.create(body);
-    res.status(201).json({
-      message: 'created',
-      data: newProduct,
-    });
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const newProduct = await service.create(body);
+      res.status(201).json({
+        message: 'created',
+        data: newProduct,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 );
 
@@ -61,13 +65,17 @@ router.patch('/:id/',
 
 router.delete('/:id',
   validatorHandler(getProductSchema, 'params'),
-  async (req, res) => {
-    const { id } = req.params;
-    const rta = await service.delete(id);
-    res.json({
-      message: 'deleted',
-      rta,
-    });
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const rta = await service.delete(id);
+      res.json({
+        message: 'deleted',
+        rta,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 );
 
