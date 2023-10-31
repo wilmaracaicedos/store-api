@@ -13,13 +13,15 @@ const price_max = Joi.number().integer();
 const limit = Joi.number().integer();
 const offset = Joi.number().integer();
 
-const createProductSchema = Joi.object({
+const createProductObject = Joi.object({
   name: name.required(),
   price: price.required(),
   description: description.required(),
   image: image.required(),
   categoryId: categoryId.required(),
 });
+
+const createProductSchema = Joi.array().items(createProductObject);
 
 const updateProductSchema = Joi.object({
   name: name,

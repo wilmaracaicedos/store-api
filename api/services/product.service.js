@@ -25,7 +25,7 @@ class ProductsService {
   }
 
   async create(data) {
-    const newProduct = await models.Product.create(data);
+    const newProduct = await models.Product.bulkCreate(data);
     return newProduct;
   }
 

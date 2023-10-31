@@ -27,7 +27,7 @@ class OrderService {
   }
 
   async addItem(data) {
-    const newItem = await models.OrderProduct.create(data);
+    const newItem = await models.OrderProduct.bulkCreate(data);
     return newItem;
   }
 }
