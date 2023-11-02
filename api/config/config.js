@@ -20,6 +20,8 @@ const config = {
 
   dbUrl: process.env.DATABASE_URL,
   dbUrlMigration: process.env.DATABASE_URL_MIGRATION,
+
+  apiKey: process.env.API_KEY,
 }
 
 module.exports = { config };
