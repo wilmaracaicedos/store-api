@@ -1,4 +1,7 @@
 const { models } = require('../libs/sequelize');
+const CustomerService = require('./customer.service');
+
+const customerService = new CustomerService();
 
 class OrderService {
   constructor() {}
@@ -21,7 +24,28 @@ class OrderService {
     return order;
   }
 
-  async create(data) {
+  async findByUser(userId) {
+    const orders = await models.Order.findAll({
+      where: {
+        '$customer.user.id$': userId,
+      },
+      include: [
+        {
+          association: 'customer',
+          include: ['user'],
+        }
+      ],
+    });
+    return orders;
+  }
+
+  async create(userId, body) {
+    const customer = await customerService.findByUser(userId);
+    const customerId = customer.dataValues.id;
+    const data = {
+      ...body,
+      customerId,
+    }
     const newOrder = await models.Order.create(data);
     return newOrder;
   }
