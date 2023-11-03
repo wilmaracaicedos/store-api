@@ -22,6 +22,7 @@ const config = {
   dbUrlMigration: process.env.DATABASE_URL_MIGRATION,
 
   apiKey: process.env.API_KEY,
+  jwtSecret: process.env.JWT_SECRET,
 }
 
 module.exports = { config };
